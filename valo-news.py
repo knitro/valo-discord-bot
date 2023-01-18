@@ -12,7 +12,10 @@ async def on_ready():
 async def on_message(message):
     if message.author == client.user:
         return
-    
+
+    if message.content.startswith("!val random teams"):
+        None
+
     if message.content.startswith("!val patch"):
 
         command_items = message.content.split(" ") # Index 0: !val, 1: patch, 2+...
@@ -22,16 +25,14 @@ async def on_message(message):
         else:
             val_version = command_items[2]
 
-        patch_notes_url = await get_latest_patch_notes()       
+        patch_notes_url = await get_patch_notes(val_version)       
         message_contents = "The latest patch notes for version " + val_version + " is below: \n" + patch_notes_url
         await message.channel.send(message_contents)
-        await get_latest_patch_notes()
 
     elif message.content.startswith('hi knitro'):
         await message.channel.send('Hello!')
 
-async def get_latest_patch_notes():
-    version = await get_latest_val_version()
+async def get_patch_notes(version):
     version_url_safe = convert_number_url_friendly(version)
     return "https://playvalorant.com/en-us/news/game-updates/valorant-patch-notes-" + version_url_safe
  
@@ -42,3 +43,8 @@ def convert_number_url_friendly(value):
     return value.replace(".", "-")
 
 client.run(constants.DISCORD_API_KEY)
+
+
+    
+
+        
