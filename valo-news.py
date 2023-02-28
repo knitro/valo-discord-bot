@@ -42,9 +42,5 @@ async def get_latest_val_version():
 def convert_number_url_friendly(value):
     return value.replace(".", "-")
 
+
 client.run(constants.DISCORD_API_KEY)
-
-
-    
-
-        
