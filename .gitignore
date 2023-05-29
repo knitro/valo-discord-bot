@@ -1,3 +1,4 @@
 constants.py
 /__pycache__/
 lineup_data.csv
+/secrets/
