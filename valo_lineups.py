@@ -16,6 +16,7 @@ client = discord.Client(command_prefix="!", intents=intents)
 # 3 = Image Aim
 # 4 = Image Lineup Landing
 # 5 = Awaiting Cancel Operation
+# 6 = Awaiting Full Lineup String
 state = 0
 selected_agent = "BRIMSTONE"
 selected_map = "HAVEN"
@@ -135,6 +136,17 @@ async def on_message(message):
             print(output_message)
             await message.channel.send(output_message)
 
+    elif message.content.startswith("!fulllineup"):
+        state = 6
+        output_message = "Add your singular lineup in csv form:"
+        print(output_message)
+        await message.channel.send(output_message)
+
+    elif state == 6:
+        print("Parsing CSV Lineup Info")
+        await process_csv_message_singular(message)
+        await send_complete_lineup_info(message)
+
     elif message.attachments:
         attachment_url = message.attachments[0].url
         if state == 2:
@@ -171,6 +183,26 @@ async def on_message(message):
         await message.channel.send(output_message)
 
     print("State = " + str(state))
+
+
+async def process_csv_message_singular(message):
+    global selected_agent
+    global selected_map
+    global selected_site
+    global lineup_name
+    global image_position_url
+    global image_aim_url
+    global image_landing_url
+
+    lineup_info = message.content.split(",")
+    print(lineup_info)
+    selected_agent = lineup_info[0].strip(" ")
+    selected_map = lineup_info[1].strip(" ")
+    selected_site = lineup_info[2].strip(" ")
+    lineup_name = lineup_info[3].strip(" ")
+    image_position_url = lineup_info[4].strip(" ")
+    image_aim_url = lineup_info[5].strip(" ")
+    image_landing_url = lineup_info[6].strip(" ")
 
 
 async def send_complete_lineup_info(message):
