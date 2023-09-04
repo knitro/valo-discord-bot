@@ -1,4 +1,7 @@
 import discord
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
 import constants
 from valo_lineups_agent import check_agent
 from valo_lineups_map import check_map
@@ -6,6 +9,9 @@ from valo_lineups_site import check_site
 
 intents = discord.Intents.all()
 client = discord.Client(command_prefix='!', intents=intents)
+
+cred = credentials.Certificate("secrets/serviceAccountKey.json")
+default_app = firebase_admin.initialize_app(cred)
 
 # States
   # 0 = Awaiting Request
@@ -168,8 +174,52 @@ async def send_complete_lineup_info(message):
     file.close()
 
     # Send back copy paste information
-    await message.channel.send(data_to_write)   
-    
+    await message.channel.send(data_to_write)
+
+    # Send to Firebase
+    ref = firestore.reference("/")
+    obj_to_send = {
+        "map": selected_map,
+        "site": selected_site,
+        "agent": selected_agent,
+        "name": lineup_name,
+        "locationImage": image_position_url,
+        "lineupImage": image_aim_url,
+        "resultImage": image_landing_url,
+    }
+    ref.push().set(obj_to_send)
+
+    # Cleanup
+    reset_lineup_variables()
+
+def reset_lineup_variables():
+    global lineup_name
+    global image_position_url
+    global image_aim_url
+    global image_landing_url
+
+    lineup_name = ""
+    image_position_url = ""
+    image_aim_url = ""
+    image_landing_url = ""
+
+def reset_all_variables():
+    global selected_agent
+    global selected_map
+    global selected_site
+    global lineup_name
+    global image_position_url
+    global image_aim_url
+    global image_landing_url
+
+    selected_agent = ""
+    selected_map = ""
+    selected_site = ""
+    lineup_name = ""
+    image_position_url = ""
+    image_aim_url = ""
+    image_landing_url = ""
+
 
 client.run(constants.DISCORD_API_KEY)
 
