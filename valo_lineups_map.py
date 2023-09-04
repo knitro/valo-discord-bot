@@ -4,6 +4,8 @@ Usage:
     py valo_lineups_map.py map
 """
 import sys
+
+
 def check_map(input):
     """Checks if an map input is valid or not
 
@@ -19,8 +21,16 @@ def check_map(input):
 
     # Check against actual names
     maps = [
-        "BIND", "HAVEN", "SPLIT", "ASCENT", "ICEBOX", "BREEZE",
-        "FRACTURE", "PEARL", "LOTUS"
+        "BIND",
+        "HAVEN",
+        "SPLIT",
+        "ASCENT",
+        "ICEBOX",
+        "BREEZE",
+        "FRACTURE",
+        "PEARL",
+        "LOTUS",
+        "SUNSET",
     ]
     for name in maps:
         if input_upper == name:
@@ -40,8 +50,6 @@ def main(map_name_to_check):
     print_string = str(valid) + ": " + map_name_to_check + " -> " + updated_name
     print(print_string)
 
-if __name__ == '__main__':
-    main(sys.argv[1])
-    
 
-        
+if __name__ == "__main__":
+    main(sys.argv[1])
