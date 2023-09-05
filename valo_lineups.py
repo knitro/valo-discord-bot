@@ -4,7 +4,8 @@ from lineup import Lineup
 from valo_lineups_agent import check_agent
 from valo_lineups_map import check_map
 from valo_lineups_site import check_site
-import valups_firebase
+import storage.valups_local as valups_local
+import storage.valups_firebase as valups_firebase
 
 intents = discord.Intents.all()
 client = discord.Client(command_prefix="!", intents=intents)
@@ -225,31 +226,8 @@ async def send_complete_lineup_info(message):
         image_landing_url,
     )
 
-    # Add to File
-    file = open(lineups_file_store, "a")
-    data_to_write = (
-        selected_agent
-        + ", "
-        + selected_map
-        + ", "
-        + selected_site
-        + ", "
-        + lineup_name
-        + ", "
-        + image_position_url
-        + ", "
-        + image_aim_url
-        + ", "
-        + image_landing_url
-    )
-    file.write(data_to_write)
-    file.write("\n")
-    file.close()
-
-    # Send back copy paste information
-    await message.channel.send(data_to_write)
-
-    # Send to Firebase
+    # Send to Storage
+    valups_local.add_lineup_csv(lineup)
     valups_firebase.add_lineup_firestore(lineup)
 
     # Cleanup
