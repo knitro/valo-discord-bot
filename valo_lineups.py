@@ -1,9 +1,9 @@
 import discord
 import constants
 from lineup import Lineup
-from valo_lineups_agent import check_agent
-from valo_lineups_map import check_map
-from valo_lineups_site import check_site
+from data.valups_agent import check_agent
+from data.valups_map import check_map
+from data.valups_site import check_site
 import storage.valups_local as valups_local
 import storage.valups_firebase as valups_firebase
 
