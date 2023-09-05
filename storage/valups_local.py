@@ -5,7 +5,7 @@ Usage:
 """
 
 import sys
-import lineup
+import classes.lineup as lineup
 
 lineups_file_store = "lineup_data.csv"
 

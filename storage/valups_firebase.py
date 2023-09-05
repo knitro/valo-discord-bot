@@ -8,7 +8,7 @@ import sys
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
-import lineup
+import classes.lineup as lineup
 
 global app
 global db

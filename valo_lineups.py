@@ -1,6 +1,6 @@
 import discord
 import constants
-from lineup import Lineup
+from classes.lineup import Lineup
 from data.valups_agent import check_agent
 from data.valups_map import check_map
 from data.valups_site import check_site
