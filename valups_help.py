@@ -12,6 +12,6 @@ async def send_help_message(message):
         + "!map [map]: Sets the map that you want to make linesup for.\n"
         + "!site {A, B, C}: Sets the site that you want to make linesup for. Note that it must be a site that is valid on the map.\n"
         + "!setup [agent] [map] [site]: Sets all agent, map and site. All valid values will be set, even if one parameter provided is invalid.\n"
-        + "!"
+        + "!lineup: Starts the lineup creation process. Requires agent, map and site to be set."
     )
     await message.reply(output_message)
