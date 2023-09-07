@@ -19,19 +19,26 @@ def setup_local():
 
 def add_lineup_csv(lineup):
     data_to_write = (
-        lineup.map,
-        lineup.site,
-        lineup.agent,
-        lineup.name,
-        lineup.positioning_image_url,
-        lineup.aim_image_url,
-        lineup.landing_image_url,
+        ""
+        + lineup.map
+        + ","
+        + lineup.site
+        + ","
+        + lineup.agent
+        + ","
+        + lineup.name
+        + ","
+        + lineup.positioning_image_url
+        + ","
+        + lineup.aim_image_url
+        + ","
+        + lineup.landing_image_url
     )
     file = open(lineups_file_store, "a")
     file.write(data_to_write)
     file.write("\n")
     file.close()
-    print("Lineup '" + lineup.map + "' has been added")
+    print("Lineup '" + lineup.map + "' has been added locally")
 
 
 def main(
