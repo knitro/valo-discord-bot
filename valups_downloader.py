@@ -1,8 +1,19 @@
-import urllib.request
+import asyncio
+import os
+import requests
 
-save_directory = "/lineup-images/"
-do_download = False
+from classes.lineup import Lineup
+
+save_directory = r"./lineup-images/"
+do_download = True
 authorised_users = ["knitr0"]
+
+
+def setup_downloader():
+    print("test")
+    # opener = urllib.request.build_opener()
+    # opener.addheaders = [("User-Agent", "Chrome")]
+    # urllib.request.install_opener(opener)
 
 
 async def download_lineup(lineup, message):
@@ -33,8 +44,35 @@ async def download_image(image_url, user, agent, map, site, name, lineup_action)
 
     file_name = agent + "-" + map + "-" + site + "-" + name + "-" + lineup_action
     file_extension = ".png"
-    file_save = save_directory + file_name + file_extension
+    file_path = save_directory + file_name + file_extension
 
-    urllib.request.urlretrieve(image_url, file_save)
+    isExist = os.path.exists(file_path)
+    if not isExist:
+        # Create a new directory because it does not exist
+        os.makedirs(file_path)
+        print("The new directory is created!")
 
-    print("File '" + file_name + "' is saved at: " + file_save)
+    data = requests.get(image_url).content
+    f = open(file_path, "wb")
+    f.write(data)
+    f.close()
+
+    print("File '" + file_name + "' is saved at: " + file_path)
+
+
+async def test_main():
+    setup_downloader()
+    await download_image(
+        r"https://cdn.discordapp.com/attachments/1149320716106346496/1149320796217561158/image.png",
+        "knitr0",
+        "BRIMSTONE",
+        "HAVEN",
+        "C",
+        "Long Post Plant",
+        "location",
+    )
+
+
+if __name__ == "__main__":
+    asyncio.run(test_main())
+    # main(sys.argv[1])
