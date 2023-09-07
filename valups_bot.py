@@ -25,7 +25,11 @@ client = discord.Client(command_prefix="!", intents=intents)
 @client.event
 async def on_ready():
     print("We have logged in as {0.user}".format(client))
-    await bot.change_presence(activity=discord.Game(name="a game"))
+    valups_url = "http://valups.web.app/"
+    activity = discord.Activity(
+        type=discord.ActivityType.streaming, name="!help", url=valups_url
+    )
+    await client.change_presence(status=discord.Status.online, activity=activity)
 
 
 @client.event
@@ -157,15 +161,13 @@ async def send_lineup(lineup):
     valups_firebase.add_lineup_firestore(lineup)
 
 
-async def async_main():
-    client.run(constants.DISCORD_API_KEY)
-    valups_firebase.setup_firebase()
-    valups_url = "http://valups.web.app/"
-    activity = discord.Activity(
-        type=discord.ActivityType.streaming, name="!help", url=valups_url
-    )
-    await client.change_presence(status=discord.Status.online, activity=activity)
-
-
 def main():
-    async_main()
+    print("Started: Valups Bot Main")
+    valups_firebase.setup_firebase()
+
+    client.run(constants.DISCORD_API_KEY)
+    print("Finished: Valups Bot Main")
+
+
+if __name__ == "__main__":
+    main()
