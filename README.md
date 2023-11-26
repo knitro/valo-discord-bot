@@ -5,8 +5,8 @@ A discord bot originally developed to learn more about python and experiment the
 ## Prerequisites
 
 - python3
-- pip install urllib3
 - pip install discord.py
+- pip install firebase_admin
 
 ## Current Functionality
 
