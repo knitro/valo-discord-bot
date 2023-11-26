@@ -4,6 +4,8 @@ Usage:
     py valo_lineups_agent.py agent
 """
 import sys
+
+
 def check_agent(input):
     """Checks if an agent input is valid or not
 
@@ -19,15 +21,33 @@ def check_agent(input):
 
     # Check against actual names
     agents = [
-        "BRIMSTONE", "VIPER", "OMEN", "KILLJOY", "CYPHER",
-        "SOVA", "SAGE", "PHOENIX", "JETT", "REYNA", "RAZE",
-        "BREACH", "SKYE", "YORU", "ASTRA", "KAYO", "CHAMBER",
-        "NEON", "FADE", "HARBOR"
+        "BRIMSTONE",
+        "VIPER",
+        "OMEN",
+        "KILLJOY",
+        "CYPHER",
+        "SOVA",
+        "SAGE",
+        "PHOENIX",
+        "JETT",
+        "REYNA",
+        "RAZE",
+        "BREACH",
+        "SKYE",
+        "YORU",
+        "ASTRA",
+        "KAYO",
+        "CHAMBER",
+        "NEON",
+        "FADE",
+        "HARBOR",
+        "GEKKO",
+        "DEADLOCK",
     ]
     for name in agents:
         if input_upper == name:
             return (True, input_upper)
-    
+
     # Check against "misspellings" of agents
     brimstone_misspells = ["BRIM"]
     for name in brimstone_misspells:
@@ -58,8 +78,6 @@ def main(agent_name_to_check):
     print_string = str(valid) + ": " + agent_name_to_check + " -> " + updated_name
     print(print_string)
 
-if __name__ == '__main__':
-    main(sys.argv[1])
-    
 
-        
+if __name__ == "__main__":
+    main(sys.argv[1])
